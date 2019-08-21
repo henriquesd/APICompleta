@@ -21,3 +21,18 @@ Console:
 ```
 dotnet ef database update --startup-project ..\DevIO.Api\
 ```
+
+
+------------------------------
+
+## Projeto Angular
+
+## Acesse pela pasta wwwroot\app\demo-webapi e execute:
+```
+npm i
+```
+
+## Executar a aplicação
+```
+ng s
+```
