@@ -22,6 +22,27 @@ Console:
 dotnet ef database update --startup-project ..\DevIO.Api\
 ```
 
+## No projeto DevIO.Api:
+
+### Comando para criar migrations:
+PowerShell:
+```
+Add-Migration Identity -Verbose -Context ApplicationDbContext
+```
+Console:
+```
+dotnet ef migrations add Identity --startup-project ..\DevIO.Api\ --context ApplicationDbContext
+```
+
+### Comando para atualizar o banco de dados
+PowerShell:
+```
+Update-Database -Context ApplicationDbContext
+```
+Console:
+```
+dotnet ef database update --startup-project ..\DevIO.Api\ --context ApplicationDbContext
+```
 
 ------------------------------
 
