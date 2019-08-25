@@ -9,19 +9,6 @@ AutoMapper e extensão para fazer injeção de dependência através do ASP.NET 
 install-package AutoMapper.Extensions.Microsoft.DependencyInjection
 ```
 
-
-## No projeto DevIO.Data:
-
-### Comando para atualizar o banco de dados
-PowerShell:
-```
-Update-Database
-```
-Console:
-```
-dotnet ef database update --startup-project ..\DevIO.Api\
-```
-
 ## No projeto DevIO.Api:
 
 ### Comando para criar migrations:
@@ -38,10 +25,12 @@ dotnet ef migrations add Identity --startup-project ..\DevIO.Api\ --context Appl
 PowerShell:
 ```
 Update-Database -Context ApplicationDbContext
+Update-Database -Context MeuDbContext
 ```
 Console:
 ```
 dotnet ef database update --startup-project ..\DevIO.Api\ --context ApplicationDbContext
+dotnet ef database update --startup-project ..\DevIO.Api\ --context MeuDbContext
 ```
 
 ------------------------------
