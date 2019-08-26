@@ -33,6 +33,17 @@ dotnet ef database update --startup-project ..\DevIO.Api\ --context ApplicationD
 dotnet ef database update --startup-project ..\DevIO.Api\ --context MeuDbContext
 ```
 
+
+### Pacotes para versionamento da API
+```
+install-package Microsoft.AspNetCore.Mvc.Versioning
+```
+
+Este pacote é sobre versionamento também, o qual irá ajudar a expor estes versionamentos, para que por exemplo a documentação entenda as versões da API:
+```
+install-package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer
+```
+
 ------------------------------
 
 ## Projeto Angular

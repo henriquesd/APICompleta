@@ -1,7 +1,7 @@
-﻿using DevIO.Api.Extensions;
+﻿using DevIO.Api.Controllers;
+using DevIO.Api.Extensions;
 using DevIO.Api.ViewModels;
 using DevIO.Business.Interfaces;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -13,9 +13,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevIO.Api.Controllers
+namespace DevIO.Api.V1.Controllers
 {
-    [Route("api")]
+    //[ApiVersion("2.0")]
+    //[ApiVersion("1.0", Deprecated = true)] // informando que esta versão está obsoleta;
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}")]
     // [DisableCors] // Uma vez que estou desabilitando o CORS, eu não estou facilitando que outras origens falem comigo porque eu desabilitei o CORS,
     // na verdade o CORS é a permissão para que outras origem falem com você, não ao contrário. Aqui está dizendo que ninguém de fora, de forma alguma, vai conseguir chamar nenhum método desta Controller;
     public class AuthController : MainController
