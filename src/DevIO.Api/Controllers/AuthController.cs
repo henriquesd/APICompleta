@@ -1,6 +1,7 @@
 ﻿using DevIO.Api.Extensions;
 using DevIO.Api.ViewModels;
 using DevIO.Business.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -15,6 +16,8 @@ using System.Threading.Tasks;
 namespace DevIO.Api.Controllers
 {
     [Route("api")]
+    // [DisableCors] // Uma vez que estou desabilitando o CORS, eu não estou facilitando que outras origens falem comigo porque eu desabilitei o CORS,
+    // na verdade o CORS é a permissão para que outras origem falem com você, não ao contrário. Aqui está dizendo que ninguém de fora, de forma alguma, vai conseguir chamar nenhum método desta Controller;
     public class AuthController : MainController
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -34,6 +37,9 @@ namespace DevIO.Api.Controllers
             _appSettings = appSettings.Value;
         }
 
+        // Se quiser relaxar a segurança em algum método, pode utilizar o EnableCors:
+        // Porém a configuração global não é sobreescrita por alguma configuração avulsa no controller (a política global não é sobreescrita com base no atributo), por exemplo, isto não funcionaria (EnableCors):
+        // [EnableCors("Development")] // Só funcionaria se não tiver nenhuma política de CORS implementada, por exemplo, se não estiver chamando o app.UseCors() no Startup, e você quer habilitar o CORS para um ponto específico da sua aplicação, ai pode fazer desta forma;
         [HttpPost("nova-conta")]
         public async Task<ActionResult> Registrar(RegisterUserViewModel registerUser)
         {

@@ -40,10 +40,12 @@ namespace DevIO.Api
         {
             if (env.IsDevelopment())
             {
+                app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                app.UseCors("Production");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 // O Hsts é um recurso de segurança, ele faz uso do Strict-Transport-Security-header, que nada mais é do que um header, é uma declaração, a chave e o valor
                 // que você passa da sua aplicação pro client, e o client uma vez que recebe esse header ele vai entender que você só conversa HTTPS;
@@ -64,6 +66,8 @@ namespace DevIO.Api
             }
 
             app.UseAuthentication(); // este precisa sempre vir antes da configuração do MVC;
+
+            // O CORS nunca pode ser chamado após o UseMvc, tem que ser sempre antes.
 
             app.UseMvcConfiguration();
         }
