@@ -29,7 +29,7 @@ namespace DevIO.Api.Configuration
 
         public static IApplicationBuilder UseMvcConfiguration(this IApplicationBuilder app)
         {
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection(); // caso a aplicação seja chamada via HTTP, ele irá redirecionar para HTTPS;
             app.UseCors("Development");
             app.UseMvc();
 
