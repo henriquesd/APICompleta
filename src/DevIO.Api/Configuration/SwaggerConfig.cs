@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -6,6 +7,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DevIO.Api.Configuration
 {
@@ -39,6 +41,8 @@ namespace DevIO.Api.Configuration
 
         public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder app, IApiVersionDescriptionProvider provider)
         {
+            //app.UseMiddleware<SwaggerAuthorizedMiddleware>();
+
             // Na hora de gerar a UI (a telinha), ele vai dar um foreach nas versões existenstes, e vai gerar um endpoint para cada versão;
             // ele irá gerar um json para cada versão da API;
 
@@ -48,6 +52,7 @@ namespace DevIO.Api.Configuration
                 {
                     foreach (var description in provider.ApiVersionDescriptions)
                     {
+                        // é possível alterar o nome;
                         options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                     }
                 });
@@ -121,6 +126,35 @@ namespace DevIO.Api.Configuration
 
                 parameter.Required |= description.IsRequired;
             }
+        }
+    }
+
+    public class SwaggerAuthorizedMiddleware
+    {
+        private readonly RequestDelegate _next;
+
+        // Precisa de um RequestDelegate porque o Middleware funciona como se fosse um componente dentro
+        // de um túnel de componentes (um pipeline), então ele sempre repassa o request para o próximo Middleware.
+        public SwaggerAuthorizedMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+        public async Task Invoke(HttpContext context)
+        {
+            // algumas ideias:
+            // poderia liberar o acesso para ambiente de desenvolvimento,
+            // redirecionar para alguma página de login,
+            // solicitar usuário e senha, etc;
+
+            if (context.Request.Path.StartsWithSegments("/swagger")
+                && !context.User.Identity.IsAuthenticated)
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                return;
+            }
+
+            await _next.Invoke(context);
         }
     }
 }
