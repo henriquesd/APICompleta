@@ -33,7 +33,6 @@ dotnet ef database update --startup-project ..\DevIO.Api\ --context ApplicationD
 dotnet ef database update --startup-project ..\DevIO.Api\ --context MeuDbContext
 ```
 
-
 ### Pacotes para versionamento da API
 ```
 install-package Microsoft.AspNetCore.Mvc.Versioning
@@ -43,6 +42,12 @@ Este pacote é sobre versionamento também, o qual irá ajudar a expor estes ver
 ```
 install-package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer
 ```
+
+### Instalação do Swagger (para documentação da API)
+```
+Install-Package Swashbuckle.AspNetCore
+```
+Para visualizar a documentação no Swagger, execute a aplicação e acesse: https://localhost:xxxxx/swagger
 
 ------------------------------
 
