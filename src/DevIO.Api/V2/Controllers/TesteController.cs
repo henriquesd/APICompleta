@@ -2,6 +2,7 @@
 using DevIO.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace DevIO.Api.V2.Controllers
 {
@@ -20,6 +21,24 @@ namespace DevIO.Api.V2.Controllers
         [HttpGet]
         public string Valor()
         {
+
+            // assim o Elmah não vai capturar o erro, porque ele interrompeu o processo do ASP.NET por causa desse erro;
+            // e também não deve deixar exceptions soltas para que sua aplicação sofra um comportamento inesperado;
+            // então para não ter este problema, foi implementado um middleware de captura de erro, para pegar qualquer erro que acontecer e tratá-lo (classe ExceptionMiddleware);
+            throw new Exception("Error");
+
+            //try
+            //{
+            //    var i = 0;
+            //    var result = 42 / i;
+            //}
+            //catch (DivideByZeroException e)
+            //{
+            //    // esse Ship é um extension method do Elmah para que possa enviar o erro que aconteceu para o servidor do Elmah;
+            //    e.Ship(HttpContext);
+            //}
+
+
             // estes dois primeiros devem ser utilizados apenas durante o desenvolvimento;
 
             // O log de Trace ele não gera porque a Microsoft desabilitou por padrão no ASP.NET Core, justamente para evitar que suba em produção um Trace que gera muito volume de dados,

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DevIO.Api.Configuration;
+using DevIO.Api.Extensions;
 using DevIO.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,8 @@ namespace DevIO.Api
             //    c.SwaggerDoc("v1", new Info { Title = "My Api", Version = "v1" });
             //});
 
+            services.AddLoggingConfiguration();
+
             services.ResolveDependencies();
         }
 
@@ -77,6 +80,8 @@ namespace DevIO.Api
 
             // O CORS nunca pode ser chamado após o UseMvc, tem que ser sempre antes.
 
+            app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseMvcConfiguration();
 
             //app.UseSwagger();
@@ -86,6 +91,8 @@ namespace DevIO.Api
             //});
 
             app.UseSwaggerConfig(provider);
+
+            app.UseLoggingConfiguration();
         }
     }
 }
