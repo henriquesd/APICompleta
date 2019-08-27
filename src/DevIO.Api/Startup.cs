@@ -41,7 +41,7 @@ namespace DevIO.Api
             //    c.SwaggerDoc("v1", new Info { Title = "My Api", Version = "v1" });
             //});
 
-            services.AddLoggingConfiguration();
+            services.AddLoggingConfiguration(Configuration);
 
             services.ResolveDependencies();
         }

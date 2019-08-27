@@ -63,6 +63,24 @@ Adicionar para ter um suporte do provider do Elmah:
 ```
 Install-Package Elmah.Io.Extensions.Logging
 ```
+
+### Instalação Xabaril AspNetCore.Diagnostics.HealthChecks
+```
+Install-Package AspNetCore.HealthChecks.SqlServer
+```
+Para acessar, execute a aplicação e adicione o "/api/hc" na url, ex: localhost:xxxx/api/hc
+
+### Instalação do pacote de UI para o HealthCheck
+```
+Install-Package AspNetCore.HealthChecks.UI -Version 2.2.28
+```
+Para acessar, execute a aplicação e adicione o "api/hc-ui" na url, ex: localhost:xxxx/api/hc-ui
+
+### Pacote para que o Elmah faça a verificação do HealthCheck (integração)
+```
+Install-Package Elmah.Io.AspNetCore.HealthChecks
+```
+
 ------------------------------
 
 ## Projeto Angular
